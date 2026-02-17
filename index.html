@@ -4,378 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NP Consulting</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Helvetica Neue", "Arial", sans-serif;
-        background-color: #0a0a0a;
-        color: #ffffff;
-        overflow-x: hidden;
-      }
-
-      /* Navigation */
-      nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px 48px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        background: transparent;
-        transition: background 0.3s ease;
-      }
-
-      /* Navigation beim Scrollen */
-      nav.scrolled {
-        background: rgba(10, 10, 10, 0.9);
-        backdrop-filter: blur(10px);
-      }
-
-      .logo {
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        color: #ffffff;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 48px;
-        list-style: none;
-      }
-
-      .nav-links a {
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 400;
-        opacity: 0.9;
-        transition: opacity 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        opacity: 0.7;
-      }
-
-      .contact-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        opacity: 0.9;
-        transition: opacity 0.3s ease;
-      }
-
-      .contact-btn:hover {
-        opacity: 0.7;
-      }
-
-      .contact-btn svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      /* Hero Section */
-      .hero {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        padding: 120px 48px 48px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      /* Hintergrund-Container mit Wallpaper und Rand-Übergang (nur Hero) */
-      .hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background:
-          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-          url("./assets/wallpaper.png") center/cover no-repeat;
-        z-index: -2;
-      }
-
-      /* Schwarzer Rand-Übergang (Vignette) */
-      .hero::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 10, 0.95) 100%);
-        pointer-events: none;
-        z-index: -1;
-      }
-
-      .hero-title {
-        font-size: clamp(50px, 15vw, 200px);
-        font-weight: 700;
-        line-height: 0.9;
-        letter-spacing: -4px;
-        color: #ffffff;
-        margin-bottom: 24px;
-        text-align: start;
-      }
-
-      .hero-description {
-        max-width: 400px;
-        font-size: 14px;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.7);
-        margin-top: auto;
-        margin-bottom: 48px;
-      }
-
-      /* Stats Footer */
-      .stats {
-        display: flex;
-        justify-content: space-between;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .stat-item {
-        font-size: 14px;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      .stat-item strong {
-        color: #ffffff;
-        font-weight: 500;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        nav {
-          padding: 20px 24px;
-        }
-
-        .nav-links {
-          display: none;
-        }
-
-        .hero {
-          padding: 100px 24px 24px;
-        }
-
-        .hero-title {
-          letter-spacing: -2px;
-        }
-
-        .stats {
-          flex-direction: column;
-          gap: 16px;
-        }
-      }
-
-      /* Leistungsspektrum Sektion */
-      .services-section {
-        padding: 120px 48px;
-        position: relative;
-      }
-
-      .services-container {
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-
-      .section-header {
-        margin-bottom: 64px;
-      }
-
-      .section-title {
-        font-size: clamp(32px, 4vw, 48px);
-        font-weight: 700;
-        line-height: 1.1;
-        letter-spacing: -1px;
-        color: #ffffff;
-        margin-bottom: 24px;
-      }
-
-      .section-intro {
-        font-size: 16px;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.7);
-        max-width: 600px;
-      }
-
-      /* Services Grid */
-      .services-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-bottom: 80px;
-      }
-
-      .service-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 32px;
-        transition: all 0.3s ease;
-      }
-
-      .service-card:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.15);
-      }
-
-      .service-icon {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 24px;
-        color: #ffffff;
-        opacity: 0.9;
-      }
-
-      .service-icon svg {
-        width: 100%;
-        height: 100%;
-      }
-
-      .service-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 12px;
-        letter-spacing: -0.3px;
-      }
-
-      .service-description {
-        font-size: 14px;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.6);
-        margin-bottom: 20px;
-      }
-
-      .service-link {
-        font-size: 13px;
-        font-weight: 500;
-        color: #ffffff;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-      }
-
-      .service-link:hover {
-        opacity: 1;
-      }
-
-      .service-link svg {
-        width: 14px;
-        height: 14px;
-      }
-
-      /* Kompetenz Block */
-      .competence-block {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 48px;
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .competence-title {
-        font-size: 24px;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 16px;
-        letter-spacing: -0.5px;
-      }
-
-      .competence-text {
-        font-size: 15px;
-        line-height: 1.7;
-        color: rgba(255, 255, 255, 0.6);
-        max-width: 700px;
-        margin: 0 auto 32px;
-      }
-
-      /* CTA Button */
-      .cta-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 28px;
-        background: #ffffff;
-        color: #0a0a0a;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .cta-button:hover {
-        background: rgba(255, 255, 255, 0.9);
-      }
-
-      .cta-button svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      /* Responsive für Services */
-      @media (max-width: 1024px) {
-        .services-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      @media (max-width: 768px) {
-        .services-section {
-          padding: 80px 24px;
-        }
-
-        .section-header {
-          margin-bottom: 48px;
-        }
-
-        .services-grid {
-          grid-template-columns: 1fr;
-          gap: 16px;
-        }
-
-        .service-card {
-          padding: 24px;
-        }
-
-        .competence-block {
-          padding: 32px 24px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <nav>
       <div class="logo">NP Consulting</div>
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Leistungen</a></li>
-        <li><a href="#">Projektablauf</a></li>
-        <li><a href="#">Über uns</a></li>
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#projektablauf">Projektablauf</a></li>
+        <li><a href="#ueber-uns">Über uns</a></li>
       </ul>
-      <a href="#" class="contact-btn">
+      <a href="#kontakt" class="contact-btn">
         Kontakt
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7" />
@@ -552,6 +192,226 @@
         </div>
       </div>
     </section>
+
+    <!-- Projektablauf Sektion -->
+    <section class="process-section" id="projektablauf">
+      <div class="process-container">
+        <div class="process-header">
+          <p class="process-subtitle">Strukturiert. Transparent. Kundennah.</p>
+          <h2 class="process-title">Projektablauf</h2>
+          <p class="process-intro">Strukturiert, transparent und in enger Abstimmung mit unseren Kunden.</p>
+        </div>
+
+        <div class="process-steps">
+          <!-- Schritt 01: Kontaktanfrage -->
+          <div class="process-step">
+            <span class="process-step-number">01</span>
+            <div class="process-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <path d="M22 6l-6 6M14 2l8 8M8 22l6-6" />
+              </svg>
+            </div>
+            <h3 class="process-step-title">Kontaktanfrage</h3>
+            <p class="process-step-description">
+              Erstkontakt über Website, E‑Mail oder Telefon zur kurzen Projektbeschreibung und Zieldefinition.
+            </p>
+          </div>
+
+          <!-- Schritt 02: Erstgespräch -->
+          <div class="process-step">
+            <span class="process-step-number">02</span>
+            <div class="process-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17 21v-2a2 2 0 00-2-2H5a2 2 0 00-2 2v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a2 2 0 00-3-1.87" />
+                <path d="M16 3.13a2 2 0 010 3.75" />
+              </svg>
+            </div>
+            <h3 class="process-step-title">Erstgespräch</h3>
+            <p class="process-step-description">
+              Persönliches oder digitales Gespräch zur Analyse der Anforderungen, Rahmenbedingungen und Projektziele.
+            </p>
+          </div>
+
+          <!-- Schritt 03: Vertragliche Abstimmung -->
+          <div class="process-step">
+            <span class="process-step-number">03</span>
+            <div class="process-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+              </svg>
+            </div>
+            <h3 class="process-step-title">Vertragliche Abstimmung</h3>
+            <p class="process-step-description">
+              Ausarbeitung des Leistungsumfangs, Abstimmung der Inhalte sowie transparente vertragliche Regelung.
+            </p>
+          </div>
+
+          <!-- Schritt 04: Durchführung -->
+          <div class="process-step">
+            <span class="process-step-number">04</span>
+            <div class="process-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+            </div>
+            <h3 class="process-step-title">Durchführung</h3>
+            <p class="process-step-description">
+              Planung, Beratung und Umsetzung der Leistungen in enger Abstimmung mit dem Kunden und klarer
+              Kommunikation.
+            </p>
+          </div>
+
+          <!-- Schritt 05: Abnahmen -->
+          <div class="process-step">
+            <span class="process-step-number">05</span>
+            <div class="process-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                <path d="M22 4L12 14.01l-3-3" />
+              </svg>
+            </div>
+            <h3 class="process-step-title">Abnahmen</h3>
+            <p class="process-step-description">
+              Abschluss des Projekts mit Prüfung, Dokumentation und Abnahme der erbrachten Leistungen.
+            </p>
+          </div>
+        </div>
+
+        <div class="process-cta">
+          <p class="process-cta-text">Sie möchten Ihr Projekt mit uns besprechen?</p>
+          <a href="#kontakt" class="cta-button">
+            Projekt starten
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Über uns Sektion -->
+    <section class="about-section" id="ueber-uns">
+      <div class="about-container">
+        <div class="about-header">
+          <p class="about-subtitle">Persönliche Beratung. Technische Kompetenz. Industrielle Erfahrung.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-image">
+            <div class="about-image-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M12 14c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5z" />
+              </svg>
+              <span class="about-image-text">Portraitfoto Geschäftsführer</span>
+            </div>
+            <p class="about-image-caption">
+              <strong>[Name des Geschäftsführers]</strong><br />
+              Geschäftsführer
+            </p>
+          </div>
+
+          <div class="about-content">
+            <h2 class="about-title">Über uns</h2>
+            <p class="about-text">
+              Mit fundiertem Hintergrund in der Industrieplanung und technischen Gebäudeausstattung begleite ich
+              komplexe Industrieprojekte von der ersten Konzeption bis zur fertigen Umsetzung. Meine Expertise umfasst
+              die Planung von Fabriken, Produktionsanlagen sowie der dazugehörigen Versorgungs- und Entsorgungstechnik.
+            </p>
+            <p class="about-text">
+              Mein Beratungsansatz ist geprägt von technischer Präzision, praktischer Erfahrung und lösungsorientiertem
+              Denken. Ich verfolge einen ganzheitlichen Ansatz, der alle relevanten Gewerke und Schnittstellen
+              berücksichtigt – mit dem Ziel, effiziente, normkonforme und wirtschaftlich tragfähige Gesamtkonzepte zu
+              entwickeln.
+            </p>
+            <p class="about-text">
+              Qualität, Zuverlässigkeit und die Einhaltung regulatorischer Anforderungen bilden dabei die Grundlage
+              jeder Projektarbeit.
+            </p>
+
+            <div class="about-stats">
+              <div class="about-stat">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Jahre Erfahrung</div>
+              </div>
+              <div class="about-stat">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Projekte realisiert</div>
+              </div>
+              <div class="about-stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Individuelle Betreuung</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- Logo & Beschreibung -->
+          <div class="footer-column">
+            <div class="footer-logo-placeholder">
+              <span class="footer-logo-text">Logo Platzhalter</span>
+            </div>
+            <p class="footer-description">
+              NP-Consulting – Planung und Beratung für industrielle Anlagen und Gebäudetechnik.
+            </p>
+          </div>
+
+          <!-- Navigation -->
+          <div class="footer-column">
+            <h4 class="footer-heading">Navigation</h4>
+            <ul class="footer-links">
+              <li><a href="#">Start</a></li>
+              <li><a href="#leistungen">Leistungen</a></li>
+              <li><a href="#projektablauf">Arbeitsweise</a></li>
+              <li><a href="#ueber-uns">Über NP-Consulting</a></li>
+              <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+          </div>
+
+          <!-- Kontakt -->
+          <div class="footer-column">
+            <h4 class="footer-heading">Kontakt</h4>
+            <div class="footer-contact">
+              <p>
+                <a href="mailto:info@np-consulting.de">info@np-consulting.de</a>
+              </p>
+              <p>
+                <a href="tel:+491234567890">+49 123 456 7890</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Rechtliches -->
+          <div class="footer-column">
+            <h4 class="footer-heading">Rechtliches</h4>
+            <ul class="footer-links">
+              <li><a href="#impressum">Impressum</a></li>
+              <li><a href="#datenschutz">Datenschutz</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2025 NP-Consulting. Alle Rechte vorbehalten.</p>
+          <ul class="footer-legal">
+            <li><a href="#impressum">Impressum</a></li>
+            <li><a href="#datenschutz">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
 
     <script>
       // Navigation Hintergrund beim Scrollen
