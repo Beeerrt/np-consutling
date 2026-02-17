@@ -103,7 +103,7 @@ nav.scrolled {
   height: 100%;
   background:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./assets/wallpaper_compressed.png") center/cover no-repeat;
+    url("./assets/wallpaper_compressed.webp") center/cover no-repeat;
   z-index: -2;
 }
 
