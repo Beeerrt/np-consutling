@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NP Consulting</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", "Arial", sans-serif;
+        background-color: #0a0a0a;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 48px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: transparent;
+        transition: background 0.3s ease;
+      }
+
+      /* Navigation beim Scrollen */
+      nav.scrolled {
+        background: rgba(10, 10, 10, 0.9);
+        backdrop-filter: blur(10px);
+      }
+
+      .logo {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: #ffffff;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 48px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 400;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        opacity: 0.7;
+      }
+
+      .contact-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+
+      .contact-btn:hover {
+        opacity: 0.7;
+      }
+
+      .contact-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 120px 48px 48px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Hintergrund-Container mit Wallpaper und Rand-Übergang (nur Hero) */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("./assets/wallpaper.png") center/cover no-repeat;
+        z-index: -2;
+      }
+
+      /* Schwarzer Rand-Übergang (Vignette) */
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 10, 0.95) 100%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .hero-title {
+        font-size: clamp(50px, 15vw, 200px);
+        font-weight: 700;
+        line-height: 0.9;
+        letter-spacing: -4px;
+        color: #ffffff;
+        margin-bottom: 24px;
+        text-align: start;
+      }
+
+      .hero-description {
+        max-width: 400px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: auto;
+        margin-bottom: 48px;
+      }
+
+      /* Stats Footer */
+      .stats {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-item {
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .stat-item strong {
+        color: #ffffff;
+        font-weight: 500;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        nav {
+          padding: 20px 24px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          padding: 100px 24px 24px;
+        }
+
+        .hero-title {
+          letter-spacing: -2px;
+        }
+
+        .stats {
+          flex-direction: column;
+          gap: 16px;
+        }
+      }
+
+      /* Leistungsspektrum Sektion */
+      .services-section {
+        padding: 120px 48px;
+        position: relative;
+      }
+
+      .services-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-header {
+        margin-bottom: 64px;
+      }
+
+      .section-title {
+        font-size: clamp(32px, 4vw, 48px);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        color: #ffffff;
+        margin-bottom: 24px;
+      }
+
+      .section-intro {
+        font-size: 16px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 600px;
+      }
+
+      /* Services Grid */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 80px;
+      }
+
+      .service-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 32px;
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .service-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 24px;
+        color: #ffffff;
+        opacity: 0.9;
+      }
+
+      .service-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .service-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 12px;
+        letter-spacing: -0.3px;
+      }
+
+      .service-description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 20px;
+      }
+
+      .service-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: #ffffff;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .service-link:hover {
+        opacity: 1;
+      }
+
+      .service-link svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Kompetenz Block */
+      .competence-block {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 48px;
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .competence-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+      }
+
+      .competence-text {
+        font-size: 15px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 700px;
+        margin: 0 auto 32px;
+      }
+
+      /* CTA Button */
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        background: #ffffff;
+        color: #0a0a0a;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .cta-button:hover {
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .cta-button svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Responsive für Services */
+      @media (max-width: 1024px) {
+        .services-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .services-section {
+          padding: 80px 24px;
+        }
+
+        .section-header {
+          margin-bottom: 48px;
+        }
+
+        .services-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .service-card {
+          padding: 24px;
+        }
+
+        .competence-block {
+          padding: 32px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">NP Consulting</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Leistungen</a></li>
+        <li><a href="#">Projektablauf</a></li>
+        <li><a href="#">Über uns</a></li>
+      </ul>
+      <a href="#" class="contact-btn">
+        Kontakt
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </nav>
+
+    <main class="hero">
+      <h1 class="hero-title">
+        Precision<br />
+        Engineering
+      </h1>
+
+      <p class="hero-description">
+        Ingenieurtechnische Planung und Umsetzung hochpräziser Produktions- und Anlagenkonzepte für regulierte
+        Industrien.
+      </p>
+
+      <div class="stats">
+        <div class="stat-item"><strong>10</strong> Jahre Erfahrung</div>
+        <div class="stat-item"><strong>+100</strong> Projekte abgeschlossen</div>
+        <div class="stat-item"><strong>1</strong> Ansprechpartner</div>
+      </div>
+    </main>
+
+    <section class="services-section" id="leistungen">
+      <div class="services-container">
+        <div class="section-header">
+          <h2 class="section-title">Leistungsspektrum</h2>
+          <p class="section-intro">
+            Ganzheitliche Planungs-, Beratungs- und Umsetzungsleistungen für industrielle Projekte – von der Analyse bis
+            zur fertigen Umsetzung.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Industrie & Fabrikplanung -->
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                <path d="M9 14l3 3 3-3" />
+              </svg>
+            </div>
+            <h3 class="service-title">Industrie- & Fabrikplanung</h3>
+            <p class="service-description">
+              Planung und Optimierung von Fabriken, Produktionsstätten und industriellen Infrastrukturen von der
+              Konzeptphase bis zur Umsetzungsreife.
+            </p>
+            <a href="#kontakt" class="service-link">
+              Mehr erfahren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Technische Gebäudeausstattung -->
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <path d="M9 4v16M15 4v16M4 9h16M4 15h16" />
+              </svg>
+            </div>
+            <h3 class="service-title">Technische Gebäudeausstattung (TGA)</h3>
+            <p class="service-description">
+              Planung und Beratung aller technischen Gewerke mit Fokus auf Effizienz, Sicherheit und Normkonformität.
+            </p>
+            <a href="#kontakt" class="service-link">
+              Mehr erfahren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Ver- und Entsorgungstechnik -->
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                />
+              </svg>
+            </div>
+            <h3 class="service-title">Ver- und Entsorgungstechnik</h3>
+            <p class="service-description">
+              Planung von Versorgungs- und Entsorgungssystemen für Maschinen, Anlagen und Produktionsprozesse.
+            </p>
+            <a href="#kontakt" class="service-link">
+              Mehr erfahren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Maschinen- & Anlagenintegration -->
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h3 class="service-title">Maschinen- & Anlagenintegration</h3>
+            <p class="service-description">
+              Technische Planung der Anbindung und Integration von Maschinen und Anlagen in Produktionsumgebungen.
+            </p>
+            <a href="#kontakt" class="service-link">
+              Mehr erfahren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Beratung & Prozessoptimierung -->
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
+            </div>
+            <h3 class="service-title">Beratung & Prozessoptimierung</h3>
+            <p class="service-description">
+              Technische Beratung, Analyse und Optimierung bestehender Anlagen, Prozesse und Infrastrukturen.
+            </p>
+            <a href="#kontakt" class="service-link">
+              Mehr erfahren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Bauleitung & technische Dienstleistungen -->
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+                />
+              </svg>
+            </div>
+            <h3 class="service-title">Bauleitung & technische Dienstleistungen</h3>
+            <p class="service-description">
+              Bauleitung, Erstellung von Leistungsverzeichnissen sowie Durchführung technischer Messungen.
+            </p>
+            <a href="#kontakt" class="service-link">
+              Mehr erfahren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kompetenz Block -->
+        <div class="competence-block">
+          <h3 class="competence-title">Alles aus einer Hand</h3>
+          <p class="competence-text">
+            NP-Consulting begleitet industrielle Projekte ganzheitlich – von Analyse und Planung bis zur Umsetzung und
+            Optimierung. Fokus auf technische Präzision, Wirtschaftlichkeit und regulatorische Anforderungen.
+          </p>
+          <a href="#kontakt" class="cta-button">
+            Projekt besprechen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Navigation Hintergrund beim Scrollen
+      window.addEventListener("scroll", function () {
+        var nav = document.querySelector("nav");
+        if (window.scrollY > 50) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>
