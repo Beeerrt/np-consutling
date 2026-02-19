@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontakt - NP Consulting</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="kontakt-styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  </head>
+  <body class="contact-page">
+    <nav>
+      <div class="logo">NP Consulting</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#leistungen">Leistungen</a></li>
+        <li><a href="index.html#projektablauf">Projektablauf</a></li>
+        <li><a href="index.html#ueber-uns">Über uns</a></li>
+      </ul>
+      <a href="kontakt.html" class="contact-btn">
+        Kontakt
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </nav>
+
+    <main class="contact-hero">
+      <!-- Hintergrund -->
+      <div class="contact-bg">
+        <img src="assets/map.png" alt="Karte" class="map-bg" />
+      </div>
+
+      <!-- Titel -->
+      <h1 class="contact-title">Kontakt</h1>
+
+      <!-- Formular -->
+      <div class="contact-form-container">
+        <form class="contact-form">
+          <h3 class="form-title">Kontaktanfrage</h3>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Nachricht</label>
+            <input type="text" id="message" name="message" required />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">
+              Senden
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- Logo & Beschreibung -->
+          <div class="footer-column">
+            <div class="footer-logo-placeholder">
+              <span class="footer-logo-text">Logo Platzhalter</span>
+            </div>
+            <p class="footer-description">
+              NP-Consulting – Planung und Beratung für industrielle Anlagen und Gebäudetechnik.
+            </p>
+          </div>
+
+          <!-- Navigation -->
+          <div class="footer-column">
+            <h4 class="footer-heading">Navigation</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Start</a></li>
+              <li><a href="index.html#leistungen">Leistungen</a></li>
+              <li><a href="index.html#projektablauf">Arbeitsweise</a></li>
+              <li><a href="index.html#ueber-uns">Über NP-Consulting</a></li>
+              <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+          </div>
+
+          <!-- Kontakt -->
+          <div class="footer-column">
+            <h4 class="footer-heading">Kontakt</h4>
+            <div class="footer-contact">
+              <p>
+                <a href="mailto:info@np-consulting.de">info@np-consulting.de</a>
+              </p>
+              <p>
+                <a href="tel:+491234567890">+49 123 456 7890</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Rechtliches -->
+          <div class="footer-column">
+            <h4 class="footer-heading">Rechtliches</h4>
+            <ul class="footer-links">
+              <li><a href="#impressum">Impressum</a></li>
+              <li><a href="#datenschutz">Datenschutz</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; 2025 NP-Consulting. Alle Rechte vorbehalten.</p>
+          <ul class="footer-legal">
+            <li><a href="#impressum">Impressum</a></li>
+            <li><a href="#datenschutz">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Navigation Hintergrund beim Scrollen
+      window.addEventListener("scroll", function () {
+        var nav = document.querySelector("nav");
+        if (window.scrollY > 50) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>
